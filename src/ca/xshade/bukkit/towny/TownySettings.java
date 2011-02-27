@@ -649,7 +649,7 @@ public class TownySettings {
 			return town.getBonusBlocks() + (Integer)getTownLevel(town).get(TownySettings.TownLevel.TOWN_BLOCK_LIMIT);
 		else
 			//return town.getBonusBlocks() + town.getNumResidents()*ratio;
-			return town.getBonusBlocks() + ratio + ((ratio * (town.getNumResidents()-1))^getTownBlockExponent()) ;
+			return (Integer)(town.getBonusBlocks() + ratio + ((ratio * (town.getNumResidents()-1))^getTownBlockExponent()));
 	}
 
 	public static double getTownBlockExponent() {
