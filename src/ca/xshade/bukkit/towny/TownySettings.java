@@ -87,7 +87,6 @@ public class TownySettings {
 	public enum Int {
 		TOWN_BLOCK_SIZE,
 		TOWN_BLOCK_RATIO,
-		TOWN_BLOCK_EXPONENT,
 		DEFAULT_MAX_TOWN_BLOCKS,
 		PRICE_NATION_NEUTRALITY,
 		WARTIME_WARNING_DELAY,
@@ -110,6 +109,7 @@ public class TownySettings {
 	};
 	// Double
 	public enum Doub {
+		TOWN_BLOCK_EXPONENT,
 		PRICE_CLAIM_TOWNBLOCK,
 		PRICE_OUTPOST,
 		PRICE_TOWN_SPAWN_TRAVEL,
@@ -247,7 +247,6 @@ public class TownySettings {
 		// Integer
 		configInt.put(TownySettings.Int.TOWN_BLOCK_SIZE, 16);
 		configInt.put(TownySettings.Int.TOWN_BLOCK_RATIO, 16);
-		configInt.put(TownySettings.Int.TOWN_BLOCK_EXPONENT, 1);
 		configInt.put(TownySettings.Int.DEFAULT_MAX_TOWN_BLOCKS, 64);
 		configInt.put(TownySettings.Int.PRICE_NATION_NEUTRALITY, 0);
 		configInt.put(TownySettings.Int.WARTIME_WARNING_DELAY, 30); // 30 seconds 
@@ -266,6 +265,7 @@ public class TownySettings {
 		configLong.put(TownySettings.KeyLong.DELETED_AFTER_TIME, 5184000000L); // Two Months
 		configLong.put(TownySettings.KeyLong.DAY_INTERVAL, 86400000L); // 24 Hours
 		//Double
+		configDoub.put(TownySettings.Doub.TOWN_BLOCK_EXPONENT, 1.2);
 		configDoub.put(TownySettings.Doub.PRICE_NEW_TOWN, 250D);
 		configDoub.put(TownySettings.Doub.PRICE_NEW_NATION, 1000D);
 		configDoub.put(TownySettings.Doub.PRICE_CLAIM_TOWNBLOCK, 25D);
@@ -652,8 +652,8 @@ public class TownySettings {
 			return town.getBonusBlocks() + ratio + ((ratio * (town.getNumResidents()-1))^getTownBlockExponent()) ;
 	}
 
-	public static int getTownBlockExponent() {
-		return getInt(TownySettings.Int.TOWN_BLOCK_EXPONENT);
+	public static double getTownBlockExponent() {
+		return getDouble(TownySettings.Doub.TOWN_BLOCK_EXPONENT);
 	}
 
 	public static int getTownBlockSize() {
