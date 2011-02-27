@@ -87,6 +87,7 @@ public class TownySettings {
 	public enum Int {
 		TOWN_BLOCK_SIZE,
 		TOWN_BLOCK_RATIO,
+		TOWN_BLOCK_EXPONENT,
 		DEFAULT_MAX_TOWN_BLOCKS,
 		PRICE_NATION_NEUTRALITY,
 		WARTIME_WARNING_DELAY,
@@ -246,6 +247,7 @@ public class TownySettings {
 		// Integer
 		configInt.put(TownySettings.Int.TOWN_BLOCK_SIZE, 16);
 		configInt.put(TownySettings.Int.TOWN_BLOCK_RATIO, 16);
+		configInt.put(TownySettings.Int.TOWN_BLOCK_EXPONENT, 1);
 		configInt.put(TownySettings.Int.DEFAULT_MAX_TOWN_BLOCKS, 64);
 		configInt.put(TownySettings.Int.PRICE_NATION_NEUTRALITY, 0);
 		configInt.put(TownySettings.Int.WARTIME_WARNING_DELAY, 30); // 30 seconds 
@@ -646,7 +648,12 @@ public class TownySettings {
 		if (ratio == 0)
 			return town.getBonusBlocks() + (Integer)getTownLevel(town).get(TownySettings.TownLevel.TOWN_BLOCK_LIMIT);
 		else
-			return town.getBonusBlocks() + town.getNumResidents()*ratio;
+			//return town.getBonusBlocks() + town.getNumResidents()*ratio;
+			return town.getBonusBlocks() + ratio + ((ratio * (town.getNumResidents()-1))^getTownBlockExponent()) ;
+	}
+
+	public static int getTownBlockExponent() {
+		return getInt(TownySettings.Int.TOWN_BLOCK_EXPONENT);
 	}
 
 	public static int getTownBlockSize() {
